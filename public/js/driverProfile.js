@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const API_PROFILE_URL = `${API_BASE_URL}/accounts/api/driver/profile/`;
-  const LOGIN_REDIRECT_URL = "../views/login_screen.html";
+  const LOGIN_REDIRECT_URL = "index.html";
 
   const profileForm = document.getElementById("profileForm");
   const saveBtn = document.getElementById("saveBtn");
