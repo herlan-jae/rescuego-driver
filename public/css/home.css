@@ -1,0 +1,11 @@
+.nav-active div {
+  background-color: #efe8ff;
+}
+.nav-active span {
+  color: #5b2eff;
+  font-weight: 600;
+}
+
+#reservationModal.hidden {
+  display: none;
+}

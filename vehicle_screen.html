@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kendaraan - RescueGo</title>
+    <link rel="icon" href="/public/img/RescueGo-SideBarLogo.svg" />
+
+    <link rel="stylesheet" href="/public/css/output.css" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+  </head>
+  <body class="bg-gray-100 min-h-screen pb-28">
+    <header class="bg-[#5B2EFF] text-white px-6 py-4 flex justify-between items-center shadow-md">
+      <div class="flex items-center space-x-3">
+        <img src="/public/img/RescueGo-SideBarLogo.svg" alt="RescueGo Logo" class="h-9 w-9" />
+        <span class="font-bold text-xl">RescueGo</span>
+      </div>
+      <a href="profile_screen.html">
+        <img src="/public/img/AvatarProfile-MockUp.svg" alt="Avatar" class="h-10 w-10 rounded-full border-2 border-white cursor-pointer" />
+      </a>
+    </header>
+
+    <main class="px-4 py-6 md:px-8 lg:px-12">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Detail Kendaraan</h1>
+
+        <div class="bg-white p-6 rounded-lg shadow-xl mb-8">
+          <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Ambulans Anda</h2>
+
+          <div id="vehicle-details" class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+            <div>
+              <label for="license_plate" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Nomor Polisi</label>
+              <input id="license_plate" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="brand" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Merek</label>
+              <input id="brand" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="model" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Model</label>
+              <input id="model" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="year" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Tahun</label>
+              <input id="year" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="type" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Tipe</label>
+              <input id="type" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="capacity" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Kapasitas</label>
+              <input id="capacity" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div>
+              <label for="city" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Kota</label>
+              <input id="city" type="text" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed" placeholder="Memuat..." readonly />
+            </div>
+            <div class="md:col-span-2">
+              <label for="equipment" class="block text-sm font-semibold text-[#5B2EFF] mb-1">Kelengkapan</label>
+              <textarea id="equipment" rows="3" class="w-full border border-gray-300 rounded-md p-3 text-gray-800 bg-gray-50 cursor-not-allowed resize-y" placeholder="Memuat..." readonly></textarea>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Status Kendaraan</h3>
+            <select id="status" class="w-full max-w-xs border border-[#5B2EFF] text-[#5B2EFF] font-semibold rounded-md px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#5B2EFF] text-base">
+              <option value="available">Tersedia</option>
+              <option value="in_service">Dalam Layanan</option>
+              <option value="under_maintenance">Dalam Perbaikan</option>
+            </select>
+            <button id="saveStatusBtn" class="mt-6 w-full max-w-xs bg-[#5B2EFF] text-white font-semibold py-3 rounded-lg hover:bg-[#4a25cc] transition-colors duration-200 shadow-md flex items-center justify-center mx-auto">
+              <span id="saveStatusButtonText">Simpan Status</span>
+              <div id="saveStatusLoadingSpinner" class="spinner hidden absolute"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="maintenanceModal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
+      <div class="bg-white rounded-2xl shadow-lg p-6 w-full max-w-md relative">
+        <h3 class="text-2xl font-bold text-center mb-6 text-gray-800">Laporkan Kerusakan</h3>
+        <form id="maintenanceForm">
+          <div>
+            <label for="maintenanceDescription" class="block text-sm font-semibold text-[#5B2EFF] mb-2">Jelaskan kerusakan yang terjadi:</label>
+            <textarea id="maintenanceDescription" name="description" rows="4" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#5B2EFF]" required></textarea>
+          </div>
+          <div class="flex justify-end gap-4 mt-8">
+            <button type="button" id="cancelMaintenanceBtn" class="px-6 py-3 bg-gray-200 text-gray-800 font-semibold rounded-lg">Batal</button>
+            <button type="submit" id="submitMaintenanceBtn" class="px-6 py-3 bg-[#5B2EFF] text-white font-semibold rounded-lg">Kirim Laporan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-inner px-6 py-3 flex justify-center items-center border-t gap-x-12 md:gap-x-24 lg:gap-x-36">
+      <a href="home_screen.html" class="flex flex-col items-center text-gray-500 hover:text-[#5B2EFF] transition-colors duration-200">
+        <div class="p-2 rounded-full">
+          <img src="/public/img/Home-Button.svg" alt="Beranda" class="h-6 w-6" />
+        </div>
+        <span class="text-xs mt-1">Beranda</span>
+      </a>
+
+      <a href="request_screen.html" class="flex flex-col items-center text-gray-500 hover:text-[#5B2EFF] transition-colors duration-200">
+        <div class="p-2 rounded-full">
+          <img src="/public/img/Request-Button.svg" alt="Permintaan" class="h-6 w-6" />
+        </div>
+        <span class="text-xs mt-1">Permintaan</span>
+      </a>
+
+      <a href="vehicle_screen.html" class="flex flex-col items-center text-[#5B2EFF] transition-colors duration-200">
+        <div class="bg-[#EFE8FF] p-2 rounded-full">
+          <img src="/public/img/Vehicle-Button-Active.svg" alt="Kendaraan" class="h-6 w-6" />
+        </div>
+        <span class="text-xs mt-1 font-semibold">Kendaraan</span>
+      </a>
+
+      <a href="profile_screen.html" class="flex flex-col items-center text-gray-500 hover:text-[#5B2EFF] transition-colors duration-200">
+        <div class="p-2 rounded-full">
+          <img src="/public/img/Profile-Button.svg" alt="Profil" class="h-6 w-6" />
+        </div>
+        <span class="text-xs mt-1">Profil</span>
+      </a>
+    </nav>
+
+    <div id="snackbar">
+      <div id="snackbarIcon"></div>
+      <div id="snackbarMessageContainer">
+        <div id="snackbarTitle"></div>
+        <div id="snackbarMessage"></div>
+      </div>
+      <button id="snackbarCloseBtn">&times;</button>
+    </div>
+
+    <script src="/public/js/utils.js"></script>
+    <script src="/public/js/apiHelper.js"></script>
+    <script src="/public/js/vehicle.js"></script>
+  </body>
+</html>

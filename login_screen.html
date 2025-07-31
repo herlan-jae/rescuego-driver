@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Driver - RescueGo</title>
+    <link rel="icon" href="/public/img/RescueGo-SideBarLogo.svg" />
+    <link rel="stylesheet" href="/public/css/output.css" />
+    <link rel="stylesheet" href="/public/css/style.css" />
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="flex flex-col md:flex-row bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-6xl">
+      <div class="w-full md:w-1/2 flex items-center justify-center p-8">
+        <img src="/public/img/ambulance-illustration.svg" alt="Ambulans Ilustrasi" class="w-full h-auto max-w-sm" />
+      </div>
+      <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center">
+        <h1 class="text-4xl font-bold text-[#5B2EFF] mb-1">Halo Drivers!</h1>
+        <h2 class="text-2xl text-[#5B2EFF] font-semibold mb-6">Silakan masuk untuk memulai</h2>
+
+        <p id="errorMsg" class="hidden text-sm text-red-500 mb-4"></p>
+        <form id="loginForm" class="space-y-5">
+          <div>
+            <label for="email" class="block text-lg font-semibold text-[#5B2EFF] mb-1">Username</label>
+            <input type="text" id="email" placeholder="Masukkan Username" class="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-[#5B2EFF] text-gray-800" required />
+          </div>
+          <div>
+            <label for="password" class="block text-lg font-semibold text-[#5B2EFF] mb-1">Password</label>
+            <div class="relative">
+              <input type="password" id="password" placeholder="Masukkan Password" class="w-full border border-gray-300 rounded-md p-3 pr-10 focus:outline-none focus:ring-2 focus:ring-[#5B2EFF] text-gray-800" required />
+              <img
+                id="eyeIcon"
+                src="/public/img/eye.svg"
+                alt="Toggle Password Visibility"
+                class="absolute inset-y-0 right-3 top-1/2 -translate-y-1/2 cursor-pointer w-5 h-5"
+                onclick="togglePassword('eyeIcon', 'password', '/public/img/eye.svg', '/public/img/eye-off.svg');"
+              />
+            </div>
+          </div>
+
+          <button type="submit" id="loginButton" class="w-full h-14 bg-[#5B2EFF] hover:bg-[#4a25cc] text-white py-3 rounded-md text-lg font-semibold relative flex items-center justify-center transition-colors duration-200 ease-in-out">
+            <span id="buttonText">Masuk</span>
+            <div id="loadingSpinner" class="spinner hidden absolute"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="snackbar">
+      <div id="snackbarIcon"></div>
+      <div id="snackbarMessageContainer">
+        <div id="snackbarTitle"></div>
+        <div id="snackbarMessage"></div>
+      </div>
+      <button id="snackbarCloseBtn">&times;</button>
+    </div>
+
+    <script src="/public/js/utils.js"></script>
+    <script src="/public/js/apiHelper.js"></script>
+    <script src="/public/js/auth.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        handleLoginFormSubmit("loginForm", "email", "password", "errorMsg", "home_screen.html");
+      });
+    </script>
+  </body>
+</html>
